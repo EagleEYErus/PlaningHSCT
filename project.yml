@@ -1,0 +1,20 @@
+name: PlaningHSCT
+options:
+  minimumXcodeGenVersion: 2.3.0
+  deploymentTarget:
+    iOS: 11.0
+  groupSortPosition: top
+  developmentLanguage: ru
+targets:
+  PlaningHSCT:
+    type: application
+    platform: iOS
+    deploymentTarget: 11.0
+    sources: [PlaningHSCT]
+    settings:
+
+      base:
+        CODE_SIGN_IDENTITY: iPhone Developer
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: "C859L9UR93"
+        PRODUCT_BUNDLE_IDENTIFIER: ru.momotov.PlaningHSCT
