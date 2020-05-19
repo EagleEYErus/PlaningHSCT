@@ -13,7 +13,7 @@ final class Request: Object {
     @objc dynamic var therapyType: Int = TherapyType.null.rawValue
     @objc dynamic var therapyNumber: Int = 0
     @objc dynamic var branchHSCT: Int = BranchHSCT.null.rawValue
-    @objc dynamic var optimalDateTherapy: Date?
+    @objc dynamic var dateTherapy: Date?
     @objc dynamic var plannedDateTherapy: Date?
     @objc dynamic var hospitalizationDate: Date?
     @objc dynamic var TBI: Bool = false

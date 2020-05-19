@@ -11,11 +11,36 @@ final class DetailRequestViewController: BaseViewController {
     private var presenter: DetailRequestPresenter!
     
     private let segmentedControl = UISegmentedControl()
+    private let containerView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = DetailRequestPresenterImpl(view: self)
         configureView()
+    }
+    
+    func add(asChildViewController viewController: UIViewController) {
+        addChild(viewController)
+        containerView.addSubview(viewController.view)
+        viewController.view.frame = containerView.bounds
+        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        viewController.didMove(toParent: self)
+    }
+    
+    func remove(asChildViewController viewController: UIViewController) {
+        viewController.willMove(toParent: nil)
+        viewController.view.removeFromSuperview()
+        viewController.removeFromParent()
+    }
+    
+    @objc
+    private func didChangeValueSegmentedControl() {
+        presenter.selectSegment(at: segmentedControl.selectedSegmentIndex)
+    }
+    
+    @objc
+    private func didTapSaveButton() {
+        
     }
 }
 
@@ -23,7 +48,17 @@ extension DetailRequestViewController {
     private func configureView() {
         title = "Новая заявка"
         setupCloseBarButtonItem()
+        addSaveBarButtonItem()
         addSegmentedControl()
+        addContainerView()
+    }
+    
+    private func addSaveBarButtonItem() {
+        let buttonItem = UIBarButtonItem(title: "Сохранить",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(didTapSaveButton))
+        navigationItem.rightBarButtonItem = buttonItem
     }
     
     private func addSegmentedControl() {
@@ -37,6 +72,18 @@ extension DetailRequestViewController {
         
         segmentedControl.snp.makeConstraints {
             $0.left.top.right.equalToSuperview().inset(16)
+        }
+        
+        segmentedControl.addTarget(self, action: #selector(didChangeValueSegmentedControl), for: .valueChanged)
+    }
+    
+    private func addContainerView() {
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(containerView)
+        
+        containerView.snp.makeConstraints {
+            $0.top.equalTo(segmentedControl.snp.bottom).offset(16)
+            $0.left.right.bottom.equalToSuperview()
         }
     }
 }
