@@ -8,7 +8,9 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
-    private let mainView = MainViewController()
+    private let requestsView = RequestsViewController()
+    private let stateView = StateViewController()
+    private let calendarView = CalendarViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +20,7 @@ final class TabBarController: UITabBarController {
 
 extension TabBarController {
     private func configureTabBar() {
-        tabBar.isTranslucent = true
+        tabBar.isTranslucent = false
         tabBar.tintColor = .systemBlue
         tabBar.unselectedItemTintColor = .lightGray
         configureControllers()
@@ -26,15 +28,25 @@ extension TabBarController {
     }
     
     private func configureControllers() {
-        viewControllers = [NavigationController(rootViewController: mainView)]
+        viewControllers = [
+            NavigationController(rootViewController: requestsView),
+            NavigationController(rootViewController: stateView),
+            NavigationController(rootViewController: calendarView)
+        ]
     }
     
     private func configureTabBarItems() {
         guard let viewControllers = viewControllers else {
             return
         }
-        viewControllers[0].tabBarItem = UITabBarItem(title: "Главная",
-                                                     image: nil,
+        viewControllers[0].tabBarItem = UITabBarItem(title: "Заявки",
+                                                     image: #imageLiteral(resourceName: "requests_tab_bar_item"),
+                                                     selectedImage: nil)
+        viewControllers[1].tabBarItem = UITabBarItem(title: "Состояние",
+                                                     image: #imageLiteral(resourceName: "state_tab_bar_item"),
+                                                     selectedImage: nil)
+        viewControllers[2].tabBarItem = UITabBarItem(title: "Календарь",
+                                                     image: #imageLiteral(resourceName: "calendar_tab_bar_item"),
                                                      selectedImage: nil)
         for vc in viewControllers {
             let item = vc.tabBarItem
