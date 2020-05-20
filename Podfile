@@ -5,4 +5,5 @@ target 'PlaningHSCT' do
   pod 'RealmSwift', '4.3.2'
   pod 'SnapKit', '5.0.1'
   pod 'IQKeyboardManagerSwift', '6.5.1'
+  pod 'Charts', '3.5.0'
 end

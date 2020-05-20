@@ -5,7 +5,7 @@
 //  Created by Момотов Евгений Олегович on 19.05.2020.
 //
 
-import Foundation
+import UIKit
 
 protocol BaseCaseIterable: CaseIterable {
     var title: String { get }
@@ -45,6 +45,31 @@ enum RequestStatusType: Int, BaseCaseIterable {
             return "Донор утвержден"
         case .null:
             return ""
+        }
+    }
+    
+    var color: UIColor {
+        switch self {
+        case .new:
+            return UIColor.blue.withAlphaComponent(0.8)
+        case .newMIS:
+            return UIColor.lightGray.withAlphaComponent(0.8)
+        case .newMISCGM:
+            return UIColor.red.withAlphaComponent(0.8)
+        case .pendingReview:
+            return UIColor.brown.withAlphaComponent(0.8)
+        case .HRHLA:
+            return UIColor.green.withAlphaComponent(0.8)
+        case .HLA:
+            return UIColor.orange.withAlphaComponent(0.8)
+        case .rejected:
+            return UIColor.purple.withAlphaComponent(0.8)
+        case .search:
+            return UIColor.darkGray.withAlphaComponent(0.8)
+        case .donorApproved:
+            return UIColor.green.withAlphaComponent(0.8)
+        case .null:
+            return UIColor.clear.withAlphaComponent(0.8)
         }
     }
 }
