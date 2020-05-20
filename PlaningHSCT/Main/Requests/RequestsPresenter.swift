@@ -10,6 +10,7 @@ import Foundation
 protocol RequestsPresenter {
     var requests: [Request] { get }
     func loadRequests()
+    func deleteRequest(at index: Int)
 }
 
 final class RequestsPresenterImpl: RequestsPresenter {
@@ -24,5 +25,11 @@ final class RequestsPresenterImpl: RequestsPresenter {
     
     func loadRequests() {
         requests = RealmServiceImpl.shared.get(Request.self)
+    }
+    
+    func deleteRequest(at index: Int) {
+        let request = requests[index]
+        requests.remove(at: index)
+        RealmServiceImpl.shared.delete(request)
     }
 }

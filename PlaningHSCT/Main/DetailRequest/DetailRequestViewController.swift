@@ -39,6 +39,7 @@ final class DetailRequestViewController: BaseViewController {
     
     @objc
     private func didTapSaveButton() {
+        view.endEditing(true)
         presenter.saveRequest()
     }
 }

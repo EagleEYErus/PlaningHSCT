@@ -24,6 +24,5 @@ extension AppConfiguringImpl {
         IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "Готово"
         IQKeyboardManager.shared.toolbarBarTintColor = .white
         IQKeyboardManager.shared.toolbarTintColor = .systemBlue
-        IQKeyboardManager.shared.previousNextDisplayMode = .alwaysHide
     }
 }

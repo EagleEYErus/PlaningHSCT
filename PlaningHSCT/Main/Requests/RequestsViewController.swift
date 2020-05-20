@@ -19,6 +19,7 @@ final class RequestsViewController: BaseViewController {
     }
     
     func reloadTableView() {
+        setupTitle()
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
         }
@@ -64,6 +65,14 @@ extension RequestsViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableView.automaticDimension
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            presenter.deleteRequest(at: indexPath.row)
+            setupTitle()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return nil
     }
@@ -83,9 +92,13 @@ extension RequestsViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension RequestsViewController {
     private func configureView() {
-        title = "Заявки \(presenter.requests.count)"
+        setupTitle()
         addAddingNewRequestBarButtonItem()
         addTableView()
+    }
+    
+    private func setupTitle() {
+        title = "Заявки (\(presenter.requests.count))"
     }
     
     private func addAddingNewRequestBarButtonItem() {

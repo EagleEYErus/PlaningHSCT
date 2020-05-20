@@ -12,6 +12,7 @@ final class RequestDonorCell: BaseTableViewCell {
     
     private let nameLabel = UILabel()
     private let surnameLabel = UILabel()
+    private let arrowImageView = UIImageView()
     
     var donor: Donor? {
         didSet {
@@ -39,6 +40,7 @@ final class RequestDonorCell: BaseTableViewCell {
 
 extension RequestDonorCell {
     private func configureView() {
+        addArrowImageView()
         addNameLabel()
         addSurnameLabel()
         addSeparator()
@@ -51,7 +53,8 @@ extension RequestDonorCell {
         addSubview(nameLabel)
         
         nameLabel.snp.makeConstraints {
-            $0.left.top.right.equalToSuperview().inset(16)
+            $0.left.top.equalToSuperview().inset(16)
+            $0.right.equalTo(arrowImageView.snp.left).offset(-8)
         }
     }
     
@@ -63,7 +66,20 @@ extension RequestDonorCell {
         
         surnameLabel.snp.makeConstraints {
             $0.top.equalTo(nameLabel.snp.bottom).offset(8)
-            $0.left.bottom.right.equalToSuperview().inset(16)
+            $0.left.bottom.equalToSuperview().inset(16)
+            $0.right.equalTo(arrowImageView.snp.left).offset(-8)
+        }
+    }
+    
+    private func addArrowImageView() {
+        arrowImageView.image = #imageLiteral(resourceName: "right_arrow")
+        arrowImageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(arrowImageView)
+        
+        arrowImageView.snp.makeConstraints {
+            $0.right.equalToSuperview().inset(8)
+            $0.centerY.equalToSuperview()
+            $0.height.width.equalTo(24)
         }
     }
     

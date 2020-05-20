@@ -19,6 +19,7 @@ final class DetailDonorViewController: BaseViewController {
     
     @objc
     private func didTapSaveButton() {
+        view.endEditing(true)
         presenter.saveDonor()
     }
 }

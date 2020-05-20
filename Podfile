@@ -6,4 +6,5 @@ target 'PlaningHSCT' do
   pod 'SnapKit', '5.0.1'
   pod 'IQKeyboardManagerSwift', '6.5.1'
   pod 'Charts', '3.5.0'
+  pod 'FSCalendar', '2.8.1'
 end

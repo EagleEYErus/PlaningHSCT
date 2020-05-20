@@ -11,6 +11,7 @@ final class RequestCell: BaseTableViewCell {
     static let identifier = String(describing: RequestCell.self)
     
     private let nameLabel = UILabel()
+    private let statusColorView = UIView()
     private let statusLabel = UILabel()
     private let arrowImageView = UIImageView()
     
@@ -35,10 +36,11 @@ final class RequestCell: BaseTableViewCell {
         }
         let patient = request.patient
         let status = request.statuses.sorted(by: { $0.date ?? Date() > $1.date ?? Date() }).first
-        let titleStatus = RequestStatusType(rawValue: status?.status ?? RequestStatusType.null.rawValue)?.title
+        let statusType = RequestStatusType(rawValue: status?.status ?? RequestStatusType.null.rawValue)
         let titleName = "\(patient?.name ?? "") \(patient?.surname ?? "")".trimmingCharacters(in: .whitespacesAndNewlines)
         nameLabel.text = titleName == "" ? "Нет имени пациента" : titleName
-        statusLabel.text = titleStatus ?? "Нет статуса заявки"
+        statusLabel.text = statusType?.title ?? "Нет статуса заявки"
+        statusColorView.backgroundColor = statusType?.color ?? .clear
     }
 }
 
@@ -47,6 +49,7 @@ extension RequestCell {
         addArrowImageView()
         addNameLabel()
         addStatusLabel()
+        addStatusColorView()
         addSeparator()
     }
     
@@ -63,6 +66,20 @@ extension RequestCell {
         }
     }
     
+    private func addStatusColorView() {
+        let size: CGFloat = 20
+        statusColorView.layer.cornerRadius = size / 2
+        statusColorView.clipsToBounds = true
+        statusColorView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(statusColorView)
+        
+        statusColorView.snp.makeConstraints {
+            $0.centerY.equalTo(statusLabel.snp.centerY)
+            $0.left.equalToSuperview().inset(16)
+            $0.height.width.equalTo(size)
+        }
+    }
+    
     private func addStatusLabel() {
         statusLabel.font = .primaryFont(ofSize: 14, weight: .regular)
         statusLabel.textColor = .grayRaven
@@ -72,7 +89,7 @@ extension RequestCell {
         
         statusLabel.snp.makeConstraints {
             $0.top.equalTo(nameLabel.snp.bottom).offset(8)
-            $0.left.equalToSuperview().inset(16)
+            $0.left.equalToSuperview().inset(44)
             $0.right.equalTo(arrowImageView.snp.left).offset(-8)
             $0.bottom.equalToSuperview().inset(16)
         }

@@ -23,7 +23,7 @@ final class StateViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupChart()
-        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
+        barChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
     }
     
     private func setupChart() {
