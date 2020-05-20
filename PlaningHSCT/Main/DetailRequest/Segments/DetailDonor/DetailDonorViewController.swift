@@ -1,14 +1,14 @@
 //
-//  SegmentPatientViewController.swift
+//  DetailDonorViewController.swift
 //  PlaningHSCT
 //
-//  Created by Момотов Евгений Олегович on 19.05.2020.
+//  Created by Момотов Евгений Олегович on 20.05.2020.
 //
 
 import UIKit
 
-final class SegmentPatientViewController: BaseViewController {
-    var presenter: SegmentPatientPresenter!
+final class DetailDonorViewController: BaseViewController {
+    var presenter: DetailDonorPresenter!
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
     
@@ -17,12 +17,13 @@ final class SegmentPatientViewController: BaseViewController {
         configureView()
     }
     
-    func getPatient() -> Patient {
-        return presenter.getPatient()
+    @objc
+    private func didTapSaveButton() {
+        presenter.saveDonor()
     }
 }
 
-extension SegmentPatientViewController: UITableViewDelegate, UITableViewDataSource {
+extension DetailDonorViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.viewModels.count
     }
@@ -58,9 +59,20 @@ extension SegmentPatientViewController: UITableViewDelegate, UITableViewDataSour
     }
 }
 
-extension SegmentPatientViewController {
+extension DetailDonorViewController {
     private func configureView() {
+        title = "Донор"
+        setupCloseBarButtonItem()
+        addSaveBarButtonItem()
         addTableView()
+    }
+    
+    private func addSaveBarButtonItem() {
+        let buttonItem = UIBarButtonItem(title: "Сохранить",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(didTapSaveButton))
+        navigationItem.rightBarButtonItem = buttonItem
     }
     
     private func addTableView() {
@@ -75,6 +87,7 @@ extension SegmentPatientViewController {
             $0.edges.equalToSuperview()
         }
         
-        tableView.register(RequestPatientCell.self, forCellReuseIdentifier: RequestPatientCell.identifier)
+        tableView.register(DetailDonorOtherInfoCell.self, forCellReuseIdentifier: DetailDonorOtherInfoCell.identifier)
+        tableView.register(DetailDonorMainInfoCell.self, forCellReuseIdentifier: DetailDonorMainInfoCell.identifier)
     }
 }

@@ -8,15 +8,29 @@
 import UIKit
 
 final class SegmentStatusViewController: BaseViewController {
-    private var presenter: SegmentStatusPresenter!
+    var presenter: SegmentStatusPresenter!
     
-    private let addingButton = UIButton()
+    private let addingButton = PrimaryButton()
     private let tableView = UITableView(frame: .zero, style: .grouped)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = SegmentStatusPresenterImpl(view: self)
         configureView()
+    }
+    
+    func reloadTableView() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
+    }
+    
+    func getStatuses() -> [RequestStatus] {
+        return presenter.getStatuses()
+    }
+    
+    @objc
+    private func didTapAddNewStatus() {
+        presenter.createNewStatus()
     }
 }
 
@@ -64,12 +78,6 @@ extension SegmentStatusViewController {
     
     private func addAddingButton() {
         addingButton.setTitle("Добавить", for: .normal)
-        addingButton.setTitleColor(.systemBlue, for: .normal)
-        addingButton.titleLabel?.font = .primaryFont(ofSize: 16, weight: .bold)
-        addingButton.layer.cornerRadius = 8
-        addingButton.layer.borderColor = UIColor.systemBlue.cgColor
-        addingButton.layer.borderWidth = 2
-        addingButton.clipsToBounds = true
         addingButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(addingButton)
         
@@ -78,6 +86,8 @@ extension SegmentStatusViewController {
             $0.height.equalTo(36)
             $0.width.equalTo(160)
         }
+        
+        addingButton.addTarget(self, action: #selector(didTapAddNewStatus), for: .touchUpInside)
     }
     
     private func addTableView() {

@@ -8,13 +8,12 @@
 import UIKit
 
 final class SegmentRequestViewController: BaseViewController {
-    private var presenter: SegmentRequestPresenter!
+    var presenter: SegmentRequestPresenter!
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = SegmentRequestPresenterImpl(view: self)
         configureView()
     }
 }

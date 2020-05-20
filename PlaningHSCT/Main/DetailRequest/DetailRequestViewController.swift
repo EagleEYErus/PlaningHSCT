@@ -8,14 +8,13 @@
 import UIKit
 
 final class DetailRequestViewController: BaseViewController {
-    private var presenter: DetailRequestPresenter!
+    var presenter: DetailRequestPresenter!
     
     private let segmentedControl = UISegmentedControl()
     private let containerView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = DetailRequestPresenterImpl(view: self)
         configureView()
     }
     
@@ -40,7 +39,7 @@ final class DetailRequestViewController: BaseViewController {
     
     @objc
     private func didTapSaveButton() {
-        
+        presenter.saveRequest()
     }
 }
 

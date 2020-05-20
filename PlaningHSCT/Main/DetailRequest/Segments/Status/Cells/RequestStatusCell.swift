@@ -10,8 +10,8 @@ import UIKit
 final class RequestStatusCell: BaseTableViewCell {
     static let identifier = String(describing: RequestStatusCell.self)
     
-    private let statusView = TextFieldView()
-    private let dateStatusView = TextFieldView()
+    private let statusView = DropDownTextFieldView()
+    private let dateStatusView = DropDownTextFieldView()
     
     private weak var viewModel: RequestStatusViewModel? {
         didSet {
@@ -29,7 +29,11 @@ final class RequestStatusCell: BaseTableViewCell {
     }
     
     private func updateView() {
-        
+        guard let viewModel = viewModel else {
+            return
+        }
+        statusView.textField.text = viewModel.status.title
+        dateStatusView.textField.text = viewModel.date?.toString() ?? ""
     }
 }
 
@@ -46,6 +50,10 @@ extension RequestStatusCell {
     }
     
     private func addStatusView() {
+        statusView.didSelectValue = { [weak self] index in
+            self?.viewModel?.status = RequestStatusType(rawValue: index) ?? .null
+        }
+        statusView.setPicker(RequestStatusType.self)
         statusView.label.text = "Статус"
         statusView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(statusView)
@@ -56,6 +64,10 @@ extension RequestStatusCell {
     }
     
     private func addDateStatusView() {
+        dateStatusView.didSelectDate = { [weak self] date in
+            self?.viewModel?.date = date
+        }
+        dateStatusView.setDatePicker()
         dateStatusView.label.text = "Дата"
         dateStatusView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dateStatusView)

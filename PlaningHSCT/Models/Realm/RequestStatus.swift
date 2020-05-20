@@ -9,9 +9,9 @@ import Foundation
 import RealmSwift
 
 final class RequestStatus: Object {
-    @objc dynamic let id: String = UUID().uuidString
+    @objc dynamic var id: String = UUID().uuidString
     @objc dynamic var status: Int = RequestStatusType.null.rawValue
-    @objc dynamic var date: Date = Date()
+    @objc dynamic var date: Date?
     
     static override func primaryKey() -> String? {
         return "id"

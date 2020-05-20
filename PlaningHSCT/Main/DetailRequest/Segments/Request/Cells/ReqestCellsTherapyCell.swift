@@ -10,10 +10,10 @@ import UIKit
 final class RequestCellsTherapyCell: BaseTableViewCell {
     static let identifier = String(describing: RequestCellsTherapyCell.self)
     
-    private let therapyTypeView = TextFieldView()
-    private let therapyNumberView = TextFieldView()
-    private let branchHSCTView = TextFieldView()
-    private let detailTherapyTypeView = TextFieldView()
+    private let therapyTypeView = DropDownTextFieldView()
+    private let therapyNumberView = DropDownTextFieldView()
+    private let branchHSCTView = DropDownTextFieldView()
+    private let detailTherapyTypeView = DropDownTextFieldView()
     
     private weak var viewModel: RequestCellsTherapyViewModel? {
         didSet {

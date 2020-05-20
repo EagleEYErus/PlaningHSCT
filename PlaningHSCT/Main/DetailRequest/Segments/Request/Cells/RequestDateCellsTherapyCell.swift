@@ -10,9 +10,9 @@ import UIKit
 final class RequestDateCellsTherapyCell: BaseTableViewCell {
     static let identifier = String(describing: RequestDateCellsTherapyCell.self)
     
-    private let datePlaningTherapyView = TextFieldView()
-    private let dateTherapyView = TextFieldView()
-    private let dateHospitalizationView = TextFieldView()
+    private let datePlaningTherapyView = DropDownTextFieldView()
+    private let dateTherapyView = DropDownTextFieldView()
+    private let dateHospitalizationView = DropDownTextFieldView()
     
     private weak var viewModel: RequestDateCellsTherapyViewModel? {
         didSet {

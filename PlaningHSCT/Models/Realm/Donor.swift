@@ -9,11 +9,12 @@ import Foundation
 import RealmSwift
 
 final class Donor: Object {
-    @objc dynamic let id: String = UUID().uuidString
+    @objc dynamic var id: String = UUID().uuidString
     @objc dynamic var name: String = ""
     @objc dynamic var surname: String = ""
     @objc dynamic var patronymic: String = ""
     @objc dynamic var dateOfBirthday: Date?
+    @objc dynamic var kinship: String = ""
     @objc dynamic var gender: Int = Gender.null.rawValue
     @objc dynamic var height: Int = 0
     @objc dynamic var weight: Int = 0

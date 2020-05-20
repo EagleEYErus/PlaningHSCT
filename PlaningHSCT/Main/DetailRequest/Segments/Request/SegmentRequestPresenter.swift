@@ -13,11 +13,13 @@ protocol SegmentRequestPresenter {
 
 final class SegmentRequestPresenterImpl: SegmentRequestPresenter {
     private weak var view: SegmentRequestViewController?
+    private let request: Request
     
     var viewModels = [CellViewModel]()
     
-    init(view: SegmentRequestViewController) {
+    init(view: SegmentRequestViewController, request: Request) {
         self.view = view
+        self.request = request
         configureViewModel()
     }
 }
@@ -25,8 +27,8 @@ final class SegmentRequestPresenterImpl: SegmentRequestPresenter {
 extension SegmentRequestPresenterImpl {
     private func configureViewModel() {
         viewModels = [
-            RequestCellsTherapyViewModel(),
-            RequestDateCellsTherapyViewModel()
+            RequestCellsTherapyViewModel(request: request),
+            RequestDateCellsTherapyViewModel(request: request)
         ]
     }
 }
