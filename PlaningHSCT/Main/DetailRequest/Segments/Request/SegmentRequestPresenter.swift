@@ -9,6 +9,7 @@ import Foundation
 
 protocol SegmentRequestPresenter {
     var viewModels: [CellViewModel] { get }
+    func getRequest() -> Request
 }
 
 final class SegmentRequestPresenterImpl: SegmentRequestPresenter {
@@ -21,6 +22,25 @@ final class SegmentRequestPresenterImpl: SegmentRequestPresenter {
         self.view = view
         self.request = request
         configureViewModel()
+    }
+    
+    func getRequest() -> Request {
+        guard
+            let therapyCell = viewModels[0] as? RequestCellsTherapyViewModel,
+            let dateCell = viewModels[1] as? RequestDateCellsTherapyViewModel else {
+            return Request()
+        }
+        let newRequest = Request()
+        newRequest.therapyType = therapyCell.therapyType
+        newRequest.therapyNumber = therapyCell.therapyNumber
+        newRequest.branchHSCT = therapyCell.branchHSCT
+        newRequest.detailTherapyType = therapyCell.detailTherapyType
+        newRequest.datePlannedTherapy = dateCell.datePlannedTherapy
+        newRequest.dateTherapy = dateCell.dateTherapy
+        newRequest.dateHospitalization = dateCell.dateHospitalization
+        newRequest.TBI = dateCell.TBI
+        newRequest.TAI = dateCell.TAI
+        return newRequest
     }
 }
 

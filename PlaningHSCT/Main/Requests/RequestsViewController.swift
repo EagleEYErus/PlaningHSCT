@@ -32,10 +32,7 @@ final class RequestsViewController: BaseViewController {
     
     private func showDetailRequest(_ request: Request? = nil) {
         let view = DetailRequestViewController()
-        view.presenter = DetailRequestPresenterImpl(view: view, request: request, didSave: { [weak self] in
-            self?.presenter.loadRequests()
-            self?.reloadTableView()
-        })
+        view.presenter = DetailRequestPresenterImpl(view: view, request: request)
         presentRoot(view)
     }
 }

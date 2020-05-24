@@ -13,7 +13,7 @@ final class RequestCellsTherapyCell: BaseTableViewCell {
     private let therapyTypeView = DropDownTextFieldView()
     private let therapyNumberView = DropDownTextFieldView()
     private let branchHSCTView = DropDownTextFieldView()
-    private let detailTherapyTypeView = DropDownTextFieldView()
+    private let detailTherapyTypeView = TextFieldView()
     
     private weak var viewModel: RequestCellsTherapyViewModel? {
         didSet {
@@ -31,7 +31,13 @@ final class RequestCellsTherapyCell: BaseTableViewCell {
     }
     
     private func updateView() {
-        
+        guard let viewModel = viewModel else {
+            return
+        }
+        therapyTypeView.textField.text = TherapyType(rawValue: viewModel.therapyType)?.title ?? ""
+        therapyNumberView.textField.text = NumberTherapyType(rawValue: viewModel.therapyNumber)?.title ?? ""
+        branchHSCTView.textField.text = BranchHSCT(rawValue: viewModel.branchHSCT)?.title ?? ""
+        detailTherapyTypeView.textField.text = viewModel.detailTherapyType
     }
 }
 

@@ -30,7 +30,12 @@ final class RequestDateCellsTherapyCell: BaseTableViewCell {
     }
     
     private func updateView() {
-        
+        guard let viewModel = viewModel else {
+            return
+        }
+        datePlaningTherapyView.textField.text = viewModel.datePlannedTherapy?.toString() ?? ""
+        dateTherapyView.textField.text = viewModel.dateTherapy?.toString() ?? ""
+        dateHospitalizationView.textField.text = viewModel.dateHospitalization?.toString() ?? ""
     }
 }
 
@@ -48,16 +53,25 @@ extension RequestDateCellsTherapyCell {
     }
     
     private func addDatePlaningTherapyView() {
+        datePlaningTherapyView.didSelectDate = { [weak self] date in
+            self?.viewModel?.datePlannedTherapy = date
+        }
+        datePlaningTherapyView.setDatePicker()
         datePlaningTherapyView.label.text = "Планируемая дата клеточной терапии"
         datePlaningTherapyView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(datePlaningTherapyView)
         
         datePlaningTherapyView.snp.makeConstraints {
-            $0.left.top.right.equalToSuperview().inset(16)
+            $0.top.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(16)
         }
     }
     
     private func addDateTherapyView() {
+        dateTherapyView.didSelectDate = { [weak self] date in
+            self?.viewModel?.dateTherapy = date
+        }
+        dateTherapyView.setDatePicker()
         dateTherapyView.label.text = "Дата клеточной терапии"
         dateTherapyView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dateTherapyView)
@@ -69,6 +83,10 @@ extension RequestDateCellsTherapyCell {
     }
     
     private func addDateHospitalizationView() {
+        dateHospitalizationView.didSelectDate = { [weak self] date in
+            self?.viewModel?.dateHospitalization = date
+        }
+        dateHospitalizationView.setDatePicker()
         dateHospitalizationView.label.text = "Дата госпитализации"
         dateHospitalizationView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dateHospitalizationView)

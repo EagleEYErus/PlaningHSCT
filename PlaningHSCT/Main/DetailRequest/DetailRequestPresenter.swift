@@ -15,12 +15,12 @@ protocol DetailRequestPresenter {
 final class DetailRequestPresenterImpl: DetailRequestPresenter {
     private weak var view: DetailRequestViewController?
     private let request: Request
-    private let didSave: VoidHandler?
+    private let type: DetailType
     
-    init(view: DetailRequestViewController, request: Request? = nil, didSave: VoidHandler?) {
+    init(view: DetailRequestViewController, request: Request? = nil) {
         self.view = view
         self.request = request ?? Request()
-        self.didSave = didSave
+        self.type = request == nil ? .new : .edit
         self.selectedView = requestView
         self.view?.add(asChildViewController: selectedView)
     }
@@ -77,28 +77,20 @@ final class DetailRequestPresenterImpl: DetailRequestPresenter {
         let statuses = statusView.getStatuses()
         let donors = donorView.getDonors()
         let patient = patientView.getPatient()
-        
-        let newRequest = Request()
-        newRequest.therapyType = TherapyType.null.rawValue
-        newRequest.therapyNumber = 0
-        newRequest.branchHSCT = BranchHSCT.null.rawValue
-        newRequest.detailTherapyType = ""
-        newRequest.dateTherapy = nil
-        newRequest.datePlannedTherapy = nil
-        newRequest.dateHospitalization = nil
-        newRequest.TBI = false
-        newRequest.TAI = false
+        let newRequest = requestView.getRequest()
         
         newRequest.patient = patient
         newRequest.addDonors(donors)
         newRequest.addStatuses(statuses)
         
+        if type == .edit {
+            RealmServiceImpl.shared.delete(request)
+        }
+        
         RealmServiceImpl.shared.save(newRequest)
-        didSave?()
+        
+        NotificationCenter.default.post(name: .updateRequest, object: nil)
+        
         view?.dismiss()
     }
-}
-
-extension DetailRequestPresenterImpl {
-    
 }

@@ -20,6 +20,7 @@ final class RequestsPresenterImpl: RequestsPresenter {
     
     init(view: RequestsViewController) {
         self.view = view
+        addObserver()
         loadRequests()
     }
     
@@ -31,5 +32,18 @@ final class RequestsPresenterImpl: RequestsPresenter {
         let request = requests[index]
         requests.remove(at: index)
         RealmServiceImpl.shared.delete(request)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            NotificationCenter.default.post(name: .updateRequest, object: nil)
+        }
+    }
+}
+
+extension RequestsPresenterImpl {
+    private func addObserver() {
+        NotificationCenter.default.addObserver(forName: .updateRequest, object: nil, queue: nil) { [weak self] _ in
+            self?.loadRequests()
+            self?.view?.reloadTableView()
+        }
     }
 }

@@ -16,6 +16,10 @@ final class SegmentRequestViewController: BaseViewController {
         super.viewDidLoad()
         configureView()
     }
+    
+    func getRequest() -> Request {
+        return presenter.getRequest()
+    }
 }
 
 extension SegmentRequestViewController: UITableViewDelegate, UITableViewDataSource {

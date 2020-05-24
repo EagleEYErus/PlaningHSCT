@@ -14,4 +14,9 @@ extension Date {
         dateFormatter.dateFormat = "dd.MM.yyyy"
         return dateFormatter.string(from: self)
     }
+    
+    func isEqualDay(_ date: Date) -> Bool {
+        let calendar = Calendar.current
+        return calendar.startOfDay(for: self) == calendar.startOfDay(for: date)
+    }
 }

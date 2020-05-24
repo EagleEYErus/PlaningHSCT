@@ -22,6 +22,17 @@ enum TherapyType: Int, BaseCaseIterable {
             return ""
         }
     }
+    
+    var name: String {
+        switch self {
+        case .autologous:
+            return "АУТО"
+        case .allogeneic:
+            return "АЛЛО"
+        case .null:
+            return ""
+        }
+    }
 }
 
 enum NumberTherapyType: Int, BaseCaseIterable {
