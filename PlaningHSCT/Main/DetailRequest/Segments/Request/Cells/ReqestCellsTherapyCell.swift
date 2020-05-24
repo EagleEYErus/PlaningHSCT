@@ -50,6 +50,10 @@ extension RequestCellsTherapyCell {
     }
     
     private func addTherapyTypeView() {
+        therapyTypeView.didSelectValue = { [weak self] index in
+            self?.viewModel?.therapyType = index
+        }
+        therapyTypeView.setPicker(TherapyType.self)
         therapyTypeView.label.text = "Вид клеточной терапии"
         therapyTypeView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(therapyTypeView)
@@ -60,6 +64,10 @@ extension RequestCellsTherapyCell {
     }
     
     private func addTherapyNumberView() {
+        therapyNumberView.didSelectValue = { [weak self] index in
+            self?.viewModel?.therapyNumber = index
+        }
+        therapyNumberView.setPicker(NumberTherapyType.self)
         therapyNumberView.label.text = "Номер клеточной терапии"
         therapyNumberView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(therapyNumberView)
@@ -71,6 +79,10 @@ extension RequestCellsTherapyCell {
     }
     
     private func addBranchHSCTView() {
+        branchHSCTView.didSelectValue = { [weak self] index in
+            self?.viewModel?.branchHSCT = index
+        }
+        branchHSCTView.setPicker(BranchHSCT.self)
         branchHSCTView.label.text = "Отделение ТГСК"
         branchHSCTView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(branchHSCTView)

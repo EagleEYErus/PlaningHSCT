@@ -7,7 +7,40 @@
 
 import Foundation
 
-enum TherapyType: Int, CaseIterable {
+enum TherapyType: Int, BaseCaseIterable {
     case null
-    case defaultTherapy
+    case autologous
+    case allogeneic
+    
+    var title: String {
+        switch self {
+        case .autologous:
+            return "Аутологичная"
+        case .allogeneic:
+            return "Аллогенная"
+        case .null:
+            return ""
+        }
+    }
+}
+
+enum NumberTherapyType: Int, BaseCaseIterable {
+    case null
+    case one
+    case two
+    case three
+    case four
+    case five
+    case six
+    case seven
+    case eight
+    case nine
+    case ten
+    
+    var title: String {
+        if self == .null {
+            return ""
+        }
+        return self.rawValue.toString()
+    }
 }

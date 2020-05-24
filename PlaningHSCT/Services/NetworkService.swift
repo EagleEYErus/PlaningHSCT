@@ -10,12 +10,14 @@ import Foundation
 enum HTTPMethod: String {
     case get = "GET"
     case post = "POST"
+    case delete = "DELETE"
 }
 
 protocol NetworkService {
     func get<T: Codable>(_ type: T.Type, path: String, completion: @escaping (T?, Error?) -> Void)
     func get<T: Codable>(_ model: T, path: String, completion: @escaping (Data?, Error?) -> Void)
     func post<T: Codable>(_ model: T, path: String, completion: @escaping (Data?, Error?) -> Void)
+    func delete<T: Codable>(_ model: T, path: String, completion: @escaping (Data?, Error?) -> Void)
 }
 
 final class NetworkServiceImpl: NetworkService {
@@ -51,6 +53,10 @@ final class NetworkServiceImpl: NetworkService {
     }
     
     func post<T: Codable>(_ model: T, path: String, completion: @escaping (Data?, Error?) -> Void) {
+        
+    }
+    
+    func delete<T: Codable>(_ model: T, path: String, completion: @escaping (Data?, Error?) -> Void) {
         
     }
 }
