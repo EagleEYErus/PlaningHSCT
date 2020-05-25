@@ -49,15 +49,39 @@ final class NetworkServiceImpl: NetworkService {
     }
     
     func get<T: Codable>(_ model: T, path: String, completion: @escaping (Data?, Error?) -> Void) {
-        
+        guard let data = try? JSONEncoder().encode(model) else {
+            return
+        }
+        let url = getURL(path: path)
+        let request = createRequest(url: url, method: .get, body: data)
+        let task = dataTask(request: request) { data, error in
+            completion(data, error)
+        }
+        task.resume()
     }
     
     func post<T: Codable>(_ model: T, path: String, completion: @escaping (Data?, Error?) -> Void) {
-        
+        guard let data = try? JSONEncoder().encode(model) else {
+            return
+        }
+        let url = getURL(path: path)
+        let request = createRequest(url: url, method: .post, body: data)
+        let task = dataTask(request: request) { data, error in
+            completion(data, error)
+        }
+        task.resume()
     }
     
     func delete<T: Codable>(_ model: T, path: String, completion: @escaping (Data?, Error?) -> Void) {
-        
+        guard let data = try? JSONEncoder().encode(model) else {
+            return
+        }
+        let url = getURL(path: path)
+        let request = createRequest(url: url, method: .delete, body: data)
+        let task = dataTask(request: request) { data, error in
+            completion(data, error)
+        }
+        task.resume()
     }
 }
 
