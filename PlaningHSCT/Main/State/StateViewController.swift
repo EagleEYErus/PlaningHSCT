@@ -13,6 +13,7 @@ final class StateViewController: BaseViewController {
     private let allCases = RequestStatusType.allCases
     
     private let barChartView = BarChartView()
+    private let collectionView = NameStatusesCollectionView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +61,7 @@ final class StateViewController: BaseViewController {
 extension StateViewController {
     private func configureView() {
         title = "Состояние"
+        addCollectionView()
         addBarChartView()
     }
     
@@ -68,7 +70,19 @@ extension StateViewController {
         view.addSubview(barChartView)
         
         barChartView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(32)
+            $0.left.right.top.equalToSuperview().inset(32)
+            $0.bottom.equalTo(collectionView.snp.top).offset(-8)
+        }
+    }
+    
+    private func addCollectionView() {
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
+        
+        collectionView.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(100)
+            $0.bottom.equalToSuperview().inset(8)
         }
     }
 }
