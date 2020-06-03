@@ -19,10 +19,15 @@ final class RequestsViewController: BaseViewController {
     }
     
     func reloadTableView() {
-        setupTitle()
         DispatchQueue.main.async { [weak self] in
+            self?.setupTitle()
             self?.tableView.reloadData()
         }
+    }
+    
+    func showErrorAlert(message: String?) {
+        showAlert(title: "Ошибка",
+                  message: message ?? "Не удалось получить данные. Отображаем последние сохраненные данные")
     }
     
     @objc
@@ -62,7 +67,9 @@ extension RequestsViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             presenter.deleteRequest(at: indexPath.row)
             setupTitle()

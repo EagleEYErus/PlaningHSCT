@@ -10,6 +10,7 @@ import RealmSwift
 
 final class Request: Object {
     @objc dynamic var id: String = UUID().uuidString
+    @objc dynamic var serverId: Int = -1
     @objc dynamic var therapyType: Int = TherapyType.null.rawValue
     @objc dynamic var therapyNumber: Int = 0
     @objc dynamic var branchHSCT: Int = BranchHSCT.null.rawValue

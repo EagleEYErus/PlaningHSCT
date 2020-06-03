@@ -12,6 +12,21 @@ enum Gender: Int, BaseCaseIterable {
     case male
     case female
     
+    init(networkKey: String?) {
+        guard let networkKey = networkKey else {
+            self = .null
+            return
+        }
+        switch networkKey {
+        case "male":
+            self = .male
+        case "female":
+            self = .female
+        default:
+            self = .null
+        }
+    }
+    
     var title: String {
         switch self {
         case .male:

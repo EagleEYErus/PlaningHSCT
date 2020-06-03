@@ -10,6 +10,7 @@ import RealmSwift
 
 final class Patient: Object {
     @objc dynamic var id: String = UUID().uuidString
+    @objc dynamic var serverId: Int = -1
     @objc dynamic var name: String = ""
     @objc dynamic var surname: String = ""
     @objc dynamic var patronymic: String = ""
