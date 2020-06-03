@@ -56,8 +56,7 @@ final class RequestsPresenterImpl: RequestsPresenter {
 extension RequestsPresenterImpl {
     private func addObserver() {
         NotificationCenter.default.addObserver(forName: .updateRequest, object: nil, queue: nil) { [weak self] _ in
-            self?.loadRequests()
-            self?.view?.reloadTableView()
+            self?.loadRequestsFromDB()
         }
     }
     
